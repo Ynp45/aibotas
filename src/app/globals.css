@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@import "tailwindcss";
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -10,11 +12,25 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  /* Tailwind v4 Custom Animations & Keyframes */
+  --animate-fluid-bg: fluidBg 25s ease infinite;
+  --animate-ambient-float: ambientFloat 12s ease-in-out infinite;
+
+  @keyframes fluidBg {
+    0%, 100% { transform: translate(0px, 0px) scale(1); }
+    33% { transform: translate(40px, -60px) scale(1.15); }
+    66% { transform: translate(-30px, 20px) scale(0.95); }
+  }
+  @keyframes ambientFloat {
+    0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.2; }
+    50% { transform: translateY(-40px) rotate(180deg); opacity: 0.4; }
+  }
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #0B0E11; /* Changed slightly to premium dark-mode blue for crypto layout */
     --foreground: #ededed;
   }
 }
@@ -24,3 +40,67 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Base Utility Classes for Background Architecture */
+.crypto-bg-system {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+}
+
+.crypto-grid-mask {
+  position: absolute;
+  inset: 0;
+  opacity: 0.015;
+  background-image: 
+    linear-gradient(to right, #808080 1px, transparent 1px),
+    linear-gradient(to bottom, #808080 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+
+
+@keyframes dynamicCryptoRain {
+  0% {
+    transform: translate3d(0, -50px, 0) scale(0.6) rotate(0deg);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.35;
+    filter: blur(0px);
+  }
+  85% {
+    opacity: 0.25;
+    filter: blur(1px);
+  }
+  100% {
+    transform: translate3d(0, 45vh, 0) scale(0.4) rotate(180deg);
+    opacity: 0;
+    filter: blur(6px);
+  }
+}
+
+.crypto-rain-particle {
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+  z-index: 1;
+  font-family: monospace;
+  font-weight: 900;
+  animation: dynamicCryptoRain linear infinite;
+}
+
+
+
+@keyframes modalPulse {
+  0%, 100% { transform: scale(1); opacity: 0.2; }
+  50% { transform: scale(1.1); opacity: 0.4; }
+}
+
+.modal-pulse-ring {
+  animation: modalPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+
