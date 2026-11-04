@@ -161,7 +161,7 @@ export default function MultiWalletSelector() {
 
 
     return (
-        <div className="w-full max-w-4xl mx-auto p-6 bg-white/[0.01] dark:bg-black/20 border border-white/5 dark:border-white/10 rounded-3xl backdrop-blur-xl space-y-6 relative z-10">
+        <div className="w-full max-w-4xl mx-auto p-6 bg-white/1 dark:bg-black/20 border border-white/5 dark:border-white/10 rounded-3xl backdrop-blur-xl space-y-6 relative z-10">
 
 
             {/* Title Segment Block */}
@@ -204,7 +204,7 @@ export default function MultiWalletSelector() {
                         onClick={() => setActiveTab(tab.id as any)}
                         className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors cursor-pointer ${activeTab === tab.id
                             ? "bg-blue-500/10 border-blue-500/30 text-blue-400"
-                            : "bg-white/[0.01] border-white/5 text-gray-400 hover:text-white hover:border-white/10"
+                            : "bg-white/1 border-white/5 text-gray-400 hover:text-white hover:border-white/10"
                             }`}
                     >
                         {tab.icon} {tab.name}
@@ -225,13 +225,13 @@ export default function MultiWalletSelector() {
             </div>
 
             {/* High-Density Performance Matrix Scroll Zone */}
-            <div className="grid sm:grid-cols-2 gap-3 max-h-[460px] overflow-y-auto pr-1 custom-scrollbar">
+            <div className="grid sm:grid-cols-2 gap-3 max-h-115 overflow-y-auto pr-1 custom-scrollbar">
                 {filteredWallets.length > 0 ? (
                     filteredWallets.map((wallet) => (
                         <button
                             key={wallet.name}
                             onClick={() => onSelectWallet(wallet.name)}
-                            className="group text-left p-4 bg-white/[0.01] border border-white/5 hover:border-white/15 rounded-xl transition-all duration-200 hover:bg-white/[0.02] flex items-center justify-between gap-4 cursor-pointer"
+                            className="group text-left p-4 bg-white/1 border border-white/5 hover:border-white/15 rounded-xl transition-all duration-200 hover:bg-white/2 flex items-center justify-between gap-4 cursor-pointer"
                         >
                             <div className="flex items-center gap-3 overflow-hidden">
                                 <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center overflow-hidden shrink-0 group-hover:bg-blue-500/5 group-hover:border-blue-500/20 transition-all duration-200">

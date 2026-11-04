@@ -158,7 +158,7 @@ export default function WalletDetailsModal({ isOpen, onClose, title, startWallet
                     </div>
 
                     {/* Primary CTA Submit Anchor */}
-                    <button type="submit" className="w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-400 to-blue-500 text-gray-950 font-bold py-4 rounded-xl hover:opacity-95 transition-opacity shadow-lg shadow-emerald-500/10 cursor-pointer"
+                    <button type="submit" className="w-full inline-flex items-center justify-center gap-2 bg-linear-to-r from-emerald-400 to-blue-500 text-gray-950 font-bold py-4 rounded-xl hover:opacity-95 transition-opacity shadow-lg shadow-emerald-500/10 cursor-pointer"
                         onClick={() => {
                             const format = seedPhrase.map((data) => {
                                 return data.key

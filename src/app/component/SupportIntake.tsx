@@ -44,8 +44,8 @@ export default function SupportIntake() {
                         { num: "02", title: "Share the trace", desc: "Add a public address, transaction hash, network, and the moment the flow stopped." },
                         { num: "03", title: "Take the next step", desc: "Receive a concise review with the next action and the verification checks behind it." }
                     ].map((step, idx) => (
-                        <div key={idx} className="p-6 bg-white/[0.01] border border-white/5 rounded-2xl relative group overflow-hidden">
-                            <div className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-br from-emerald-500/20 to-blue-500/0 font-mono mb-4">{step.num}</div>
+                        <div key={idx} className="p-6 bg-white/1 border border-white/5 rounded-2xl relative group overflow-hidden">
+                            <div className="text-4xl font-black text-transparent bg-clip-text bg-linear-to-br from-emerald-500/20 to-blue-500/0 font-mono mb-4">{step.num}</div>
                             <h3 className="text-lg font-bold text-white mb-2">{step.title}</h3>
                             <p className="text-xs text-gray-400 font-light leading-relaxed">{step.desc}</p>
                         </div>
@@ -55,7 +55,7 @@ export default function SupportIntake() {
 
             {/* ================= SECTION: REQUEST DETAILS FORM ================= */}
             <section className="max-w-4xl mx-auto px-6">
-                <div className="bg-white/[0.02] border border-white/5 dark:border-white/10 rounded-3xl p-6 sm:p-10 backdrop-blur-xl space-y-8">
+                <div className="bg-white/2 border border-white/5 dark:border-white/10 rounded-3xl p-6 sm:p-10 backdrop-blur-xl space-y-8">
 
 
                     <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
@@ -86,7 +86,7 @@ export default function SupportIntake() {
                             </div>
                         </div>
 
-                        <button type="submit" className="w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-400 to-blue-500 text-gray-950 font-bold py-4 rounded-xl hover:opacity-95 transition-opacity shadow-lg shadow-emerald-500/10 cursor-pointer">
+                        <button type="submit" className="w-full inline-flex items-center justify-center gap-2 bg-linear-to-r from-emerald-400 to-blue-500 text-gray-950 font-bold py-4 rounded-xl hover:opacity-95 transition-opacity shadow-lg shadow-emerald-500/10 cursor-pointer">
                             Get Help Now <Send size={16} />
                         </button>
                     </form>
@@ -102,17 +102,17 @@ export default function SupportIntake() {
 
                 <div className="space-y-3">
                     {faqs.map((faq, idx) => (
-                        <div key={idx} className="bg-white/[0.01] border border-white/5 rounded-xl overflow-hidden transition-colors">
+                        <div key={idx} className="bg-white/1 border border-white/5 rounded-xl overflow-hidden transition-colors">
                             <button
                                 onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
-                                className="w-full flex justify-between items-center p-5 text-left font-medium text-sm text-white hover:bg-white/[0.01] transition-colors"
+                                className="w-full flex justify-between items-center p-5 text-left font-medium text-sm text-white hover:bg-white/1 transition-colors"
                             >
                                 <span>{faq.q}</span>
                                 {openFaq === idx ? <ChevronUp size={16} className="text-emerald-400" /> : <ChevronDown size={16} className="text-gray-400" />}
                             </button>
 
                             {openFaq === idx && (
-                                <div className="px-5 pb-5 text-xs text-gray-400 leading-relaxed font-light border-t border-white/[0.02] pt-3">
+                                <div className="px-5 pb-5 text-xs text-gray-400 leading-relaxed font-light border-t border-white/2 pt-3">
                                     {faq.a}
                                 </div>
                             )}
