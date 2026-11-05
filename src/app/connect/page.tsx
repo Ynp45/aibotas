@@ -1,7 +1,7 @@
 // app/components/MultiWalletSelector.tsx
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Wallet, Search, ArrowRight, ShieldCheck, Grid, Layers, HardDrive } from "lucide-react";
 import { useRouter } from "next/navigation";
 import SecureConnectionModal from "../component/SecureConnectionModal";
@@ -180,6 +180,15 @@ export default function MultiWalletSelector() {
         }
     ];
 
+    useEffect(() => {
+        if (selectedWallet) {
+            setIsSecureModalOpen(true);
+        }
+    }, [selectedWallet]);
+
+    const [connectionState, setConnectionState] = useState<"IDLE" | "CONNECTING" | "VERIFIED">("IDLE");
+    const [activeProvider, setActiveProvider] = useState<string | null>(null);
+
     const filteredWallets = wallets.filter(wallet => {
         const matchesSearch = wallet.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
             wallet.desc.toLowerCase().includes(searchQuery.toLowerCase());
@@ -190,11 +199,7 @@ export default function MultiWalletSelector() {
 
     function onSelectWallet(walletName: string) {
         setSelectedWallet(walletName);
-        const t = setTimeout(() => {
 
-            setIsSecureModalOpen(true);
-            clearTimeout(t)
-        }, 500)
 
     }
 

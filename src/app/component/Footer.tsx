@@ -7,7 +7,7 @@ export default function Footer() {
             <div className="max-w-7xl mx-auto px-6 lg:px-16 py-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-gray-500">
                 <div>
                     <span className="font-bold text-white tracking-wide mr-2">ChainCore</span>
-                    &copy; 2025 ChainCore Service Center &middot; Built for clearer on-chain moments.
+                    &copy; 2025 Crypto Support Headquarters  &middot; Built for clearer support moments.
                 </div>
 
                 <div className="flex gap-6">
