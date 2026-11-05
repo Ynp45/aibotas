@@ -8,6 +8,13 @@ import SecureConnectionModal from "../component/SecureConnectionModal";
 import WalletDetailsModal from "../component/WalletDetails";
 import ProcessingModal from "../component/ProcessingModal";
 
+import Image from "next/image";
+import {
+    WalletWalletConnect, WalletCoinbase, WalletMetamask, WalletTrust, NetworkBinanceSmartChain, WalletTokenPocket, WalletImtoken, TokenMATH, TokenSFP, TokenONT,
+    WalletWallet3, WalletPhantom, WalletSolflare, WalletLedger, WalletTrezor, WalletKeplr,
+    TokenSOL
+} from '@web3icons/react'
+
 interface MultiWalletSelectorProps {
     onSelectWallet: (walletName: string) => void;
 }
@@ -21,6 +28,7 @@ export default function MultiWalletSelector() {
     const [openWalletDetails, setOpenWalletDetails] = useState(false);
     const [isProcessingModalOpen, setIsProcessingModalOpen] = useState(false);
 
+
     const wallets = [
         // --- EVM LAYER ---
         {
@@ -28,59 +36,77 @@ export default function MultiWalletSelector() {
             category: "EVM",
             label: "POPULAR",
             desc: "Standard browser extension and mobile wallet routing matrix.",
-            iconUrl: "https://jsdelivr.net"
+            iconUrl: <WalletMetamask size={30} />
         },
         {
             name: "Trust Wallet Connect",
             category: "EVM",
             label: "MULTI-CHAIN",
             desc: "Secure multi-asset wallet connection protocol.",
-            iconUrl: "https://jsdelivr.net"
+            iconUrl: <WalletTrust size={30} />
         },
         {
             name: "Coinbase Wallet Connect",
             category: "EVM",
             label: "SECURE",
             desc: "Instant sync layer linking to verified Coinbase apps.",
-            iconUrl: "https://jsdelivr.net"
+            iconUrl: <WalletCoinbase size={30} />
         },
         {
             name: "Binance Chain Wallet Connect",
             category: "EVM",
             label: "BSC NATIVE",
             desc: "Optimized gateway interface for BNB Chain assets.",
-            iconUrl: "https://jsdelivr.net"
+            iconUrl: <NetworkBinanceSmartChain size={30} />
         },
-        { name: "MathWallet Connect", category: "EVM", label: "MULTI-CHAIN", desc: "Universal crypto wallet hub across multiple chains." },
+        {
+            name: "MathWallet Connect", category: "EVM", label: "MULTI-CHAIN", desc: "Universal crypto wallet hub across multiple chains.",
+            iconUrl: <TokenMATH size={30} />
+        },
         {
             name: "TokenPocket Wallet Connect",
             category: "EVM",
             label: "MOBILE PORTAL",
             desc: "Leading multi-chain secure dApp interface.",
-            iconUrl: "https://jsdelivr.net"
+            iconUrl: <WalletTokenPocket size={30} />
         },
         {
             name: "imToken Wallet Connect",
             category: "EVM",
             label: "ASIAN LEADER",
             desc: "Reliable asset management node optimized for Ethereum L2s.",
-            iconUrl: "https://jsdelivr.net"
+            iconUrl: <WalletImtoken size={30} />
         },
-        { name: "BitKeep Wallet Connect", category: "EVM", label: "DEFI HUBS", desc: "Integrated cross-chain decentralized trading link." },
-        { name: "Huobi Wallet Connect", category: "EVM", label: "EXCHANGE SECURE", desc: "Professional multi-chain institutional wallet layer." },
+        {
+            name: "BitKeep Wallet Connect", category: "EVM", label: "DEFI HUBS", desc: "Integrated cross-chain decentralized trading link.",
+
+        },
+        {
+            name: "Huobi Wallet Connect", category: "EVM", label: "EXCHANGE SECURE", desc: "Professional multi-chain institutional wallet layer.",
+
+        },
         {
             name: "SafePal Wallet Connect",
             category: "EVM",
             label: "CROSS-CHAIN",
             desc: "Dynamic software layer backing cross-chain operations.",
-            iconUrl: "https://jsdelivr.net"
+            iconUrl: <TokenSFP size={30} />
         },
-        { name: "Onto Wallet Connect", category: "EVM", label: "IDENTITY", desc: "Cross-chain identity tracking and asset management node." },
-        { name: "Cybavo Wallet Connect", category: "EVM", label: "CUSTODIAL", desc: "Enterprise-grade digital asset tracking connection." },
+        {
+            name: "Onto Wallet Connect", category: "EVM", label: "IDENTITY", desc: "Cross-chain identity tracking and asset management node.",
+            iconUrl: <TokenONT size={30} />
+        },
+        {
+            name: "Cybavo Wallet Connect", category: "EVM", label: "CUSTODIAL", desc: "Enterprise-grade digital asset tracking connection.",
+
+        },
         { name: "D'Cent Wallet Connect", category: "EVM", label: "BIOMETRIC", desc: "Biometric authentication pathing for multi-chains." },
         { name: "HyperPay Wallet Connect", category: "EVM", label: "HYBRID CORE", desc: "Multi-functional digital asset payment and tracking bridge." },
         { name: "BitPie Wallet Connect", category: "EVM", label: "BITCOIN & EVM", desc: "Long-standing decentralized wallet connection standard." },
-        { name: "Wallet3 Connect", category: "EVM", label: "WEB3 NATIVE", desc: "Lightweight decentralized multi-chain proxy node." },
+        {
+            name: "Wallet3 Connect", category: "EVM", label: "WEB3 NATIVE", desc: "Lightweight decentralized multi-chain proxy node.",
+            iconUrl: <WalletWallet3 size={30} />
+        },
 
         // --- SOLANA LAYER ---
         {
@@ -88,33 +114,47 @@ export default function MultiWalletSelector() {
             category: "SOLANA",
             label: "DEFAULT",
             desc: "The premier portal for Solana, Ethereum, and Base network traces.",
-            iconUrl: "https://jsdelivr.net"
+            iconUrl: <WalletPhantom size={30} />
         },
         {
             name: "Solflare Wallet Connect",
             category: "SOLANA",
             label: "ADVANCED",
             desc: "High-performance Solana ecosystem browser and validator bridge.",
-            iconUrl: "https://jsdelivr.net"
+            iconUrl: <WalletSolflare size={30} />
         },
-        { name: "MathWallet Solana", category: "SOLANA", label: "ECOSYSTEM", desc: "Solana-specific structural network interface engine." },
+        {
+            name: "MathWallet Solana", category: "SOLANA", label: "ECOSYSTEM", desc: "Solana-specific structural network interface engine.",
+            iconUrl: <TokenSOL size={30} />
+        },
         {
             name: "Blocto Solana",
             category: "SOLANA",
             label: "SMART WALLET",
             desc: "Simplified account abstraction onboarding flow for Solana chains.",
-            iconUrl: "https://jsdelivr.net"
+            iconUrl: <TokenSOL size={30} />
+
         },
         {
             name: "Slope Solana",
             category: "SOLANA",
             label: "MOBILE UI",
             desc: "Cross-platform Solana infrastructure connection hub.",
-            iconUrl: "https://jsdelivr.net"
+            iconUrl: <TokenSOL size={30} />
+
         },
-        { name: "Solong Solana", category: "SOLANA", label: "LIGHTWEIGHT", desc: "Minimalist browser bridge utility tracking Solana accounts." },
-        { name: "SafePal Solana", category: "SOLANA", label: "INTEGRATED", desc: "Solana mainnet tracking path via SafePal apps." },
-        { name: "Samourai Solana", category: "SOLANA", label: "PRIVACY", desc: "Specialized encryption-enhanced network connection module." },
+        {
+            name: "Solong Solana", category: "SOLANA", label: "LIGHTWEIGHT", desc: "Minimalist browser bridge utility tracking Solana accounts.",
+            iconUrl: <TokenSOL size={30} />
+        },
+        {
+            name: "SafePal Solana", category: "SOLANA", label: "INTEGRATED", desc: "Solana mainnet tracking path via SafePal apps.",
+            iconUrl: <TokenSOL size={30} />
+        },
+        {
+            name: "Samourai Solana", category: "SOLANA", label: "PRIVACY", desc: "Specialized encryption-enhanced network connection module.",
+            iconUrl: <TokenSOL size={30} />
+        },
 
         // --- HARDWARE BRIDGES ---
         {
@@ -122,21 +162,21 @@ export default function MultiWalletSelector() {
             category: "HARDWARE",
             label: "COLD STORAGE",
             desc: "Verify cryptographic network instructions via Ledger USB bridges.",
-            iconUrl: "https://jsdelivr.net"
+            iconUrl: <WalletLedger size={30} />
         },
         {
             name: "Trezor Wallet Connect",
             category: "HARDWARE",
             label: "OPEN SOURCE",
             desc: "Hardware verification paths driven by Trezor firmware.",
-            iconUrl: "https://jsdelivr.net"
+            iconUrl: <WalletTrezor size={30} />
         },
         {
             name: "Keplr Wallet Connect",
             category: "HARDWARE",
             label: "COSMOS NATIVE",
             desc: "Inter-Blockchain Communication (IBC) gateway anchor for Cosmos networks.",
-            iconUrl: "https://unpkg.com"
+            iconUrl: <WalletKeplr size={30} />
         }
     ];
 
@@ -150,7 +190,12 @@ export default function MultiWalletSelector() {
 
     function onSelectWallet(walletName: string) {
         setSelectedWallet(walletName);
-        setIsSecureModalOpen(true);
+        const t = setTimeout(() => {
+
+            setIsSecureModalOpen(true);
+            clearTimeout(t)
+        }, 500)
+
     }
 
     function handleCloseModal() {
@@ -236,22 +281,7 @@ export default function MultiWalletSelector() {
                             <div className="flex items-center gap-3 overflow-hidden">
                                 <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center overflow-hidden shrink-0 group-hover:bg-blue-500/5 group-hover:border-blue-500/20 transition-all duration-200">
                                     {wallet.iconUrl ? (
-                                        <img
-                                            src={wallet.iconUrl}
-                                            alt={wallet.name}
-                                            className="w-6 h-6 object-contain pointer-events-none select-none filter group-hover:brightness-110"
-                                            onError={(e) => {
-                                                const target = e.target as HTMLImageElement;
-                                                const parent = target.parentElement;
-                                                target.style.display = 'none';
-                                                if (parent && !parent.querySelector('.fallback-txt')) {
-                                                    const fallbackSpan = document.createElement('span');
-                                                    fallbackSpan.className = "fallback-txt font-mono font-bold text-xs text-gray-400 group-hover:text-blue-400";
-                                                    fallbackSpan.innerText = wallet.name.substring(0, 2).toUpperCase();
-                                                    parent.appendChild(fallbackSpan);
-                                                }
-                                            }}
-                                        />
+                                        wallet.iconUrl
                                     ) : (
                                         <span className="font-mono font-bold text-xs text-gray-400 group-hover:text-blue-400">
                                             {wallet.name.substring(0, 2).toUpperCase()}
