@@ -237,7 +237,7 @@ export default function MultiWalletSelector() {
                     </p>
                 </div>
                 <div className="flex items-center gap-1.5 text-[11px] text-emerald-400 bg-emerald-500/5 px-2.5 py-1 rounded-md border border-emerald-500/10 font-mono font-medium">
-                    <ShieldCheck size={14} /> RPC HANDSHAKES SAFE
+                    <ShieldCheck size={14} /> Node HANDSHAKES SAFE
                 </div>
             </div>
 
