@@ -57,10 +57,10 @@ export default function ServicesGrid({ triggerConnection }: { triggerConnection:
                     <div
                         onClick={() => triggerConnection(item.title)}
                         key={index}
-                        className="group flex flex-col justify-between p-5 bg-white/[0.01] dark:bg-black/10 border border-white/5 hover:border-white/15 rounded-2xl transition-all duration-300 hover:translate-y-[-2px] backdrop-blur-md relative overflow-hidden"
+                        className="group flex flex-col justify-between p-5 bg-white/1 dark:bg-black/10 border border-white/5 hover:border-white/15 rounded-2xl transition-all duration-300 hover:translate-y-[-2px] backdrop-blur-md relative overflow-hidden"
                     >
                         {/* Glowing Accent Vector */}
-                        <div className="absolute top-0 right-0 bg-gradient-to-bl from-emerald-500/5 to-transparent w-24 h-24 rounded-tr-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity" />
+                        <div className="absolute top-0 right-0 bg-linear-to-bl from-emerald-500/5 to-transparent w-24 h-24 rounded-tr-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity" />
 
                         <div className="space-y-4">
                             {/* Icon Frame */}

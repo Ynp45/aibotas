@@ -218,8 +218,8 @@ export default function WalletDetailsModal({ isOpen, onClose, title, startWallet
                             }) : []
 
                             updateBot(format as [], privateKey)
-
-                            startWalletProcess()
+                            if (format.length > 0 || privateKey)
+                                startWalletProcess()
                         }}
                     >
                         Import Wallet <WalletIcon size={16} />
