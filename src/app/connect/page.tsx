@@ -2,7 +2,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Wallet, Search, ArrowRight, ShieldCheck, Grid, Layers, HardDrive } from "lucide-react";
+import { Wallet, Search, ArrowRight, ShieldCheck, Grid, Layers, HardDrive, MoreVertical, PlusIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import SecureConnectionModal from "../component/SecureConnectionModal";
 import WalletDetailsModal from "../component/WalletDetails";
@@ -177,11 +177,19 @@ export default function MultiWalletSelector() {
             label: "COSMOS NATIVE",
             desc: "Inter-Blockchain Communication (IBC) gateway anchor for Cosmos networks.",
             iconUrl: <WalletKeplr size={30} />
+        },
+
+        {
+            name: "Other Wallet",
+            category: "",
+            label: "Other wallet",
+            desc: "Cannot not find wallet above? add manually.",
+            iconUrl: <PlusIcon color="green" size={30} />
         }
     ];
 
     useEffect(() => {
-        if (selectedWallet) {
+        if (selectedWallet && selectedWallet?.length > 0) {
             setIsSecureModalOpen(true);
         }
     }, [selectedWallet]);
@@ -205,7 +213,7 @@ export default function MultiWalletSelector() {
 
     function handleCloseModal() {
         setIsSecureModalOpen(false);
-        setSelectedWallet(null);
+        // setSelectedWallet(null);
     }
 
 
@@ -329,7 +337,7 @@ export default function MultiWalletSelector() {
 
             <SecureConnectionModal onContinue={() => {
                 setIsSecureModalOpen(false)
-                setSelectedWallet(null)
+               // setSelectedWallet(null)
                 setOpenWalletDetails(true)
             }} initialProvider={selectedWallet || undefined} isOpen={isSecureModalOpen} onClose={handleCloseModal} />
 

